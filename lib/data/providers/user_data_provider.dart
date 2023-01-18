@@ -29,7 +29,7 @@ class UserDataProvider {
       }
       return data;
     } on DioError catch (e) {
-      throw SimpleDioException(dioError: e);
+      throw SimpleDioException(dioError: e, handleTokenInvalid: false);
     }
   }
 
@@ -48,7 +48,7 @@ class UserDataProvider {
       }
       return data;
     } on DioError catch (e) {
-      throw SimpleDioException(dioError: e);
+      throw SimpleDioException(dioError: e, handleTokenInvalid: false);
     }
   }
 }
