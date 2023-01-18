@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_client/logic/theme_brightness_cubit.dart';
 
-PreferredSizeWidget? topBar(BuildContext context) {
+PreferredSizeWidget? topBar(BuildContext context,
+    {PreferredSizeWidget? bottom}) {
   return AppBar(
     centerTitle: true,
     title: Text(
@@ -24,6 +25,7 @@ PreferredSizeWidget? topBar(BuildContext context) {
       ),
       const SizedBox(width: 8),
     ],
+    bottom: bottom,
   );
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_client/data/repository.dart';
+import 'package:news_app_client/logic/news_feed/news_feed_bloc.dart';
 import 'package:news_app_client/logic/theme_brightness_cubit.dart';
 import 'package:news_app_client/routing/app_router.dart';
 import 'package:news_app_client/style/theme.dart';
@@ -17,8 +18,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (_) => Repository(),
-      child: BlocProvider(
-        create: (_) => ThemeBrightnessCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => ThemeBrightnessCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                NewsFeedBloc(repository: Repository()),
+          ),
+        ],
         child: BlocBuilder<ThemeBrightnessCubit, Brightness>(
           builder: (context, brightness) {
             final themeMode = {
