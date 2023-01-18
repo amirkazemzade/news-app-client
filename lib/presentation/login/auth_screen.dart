@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_client/data/providers/hive_provider.dart';
 import 'package:news_app_client/data/repository.dart';
 import 'package:news_app_client/logic/auth/login/login_bloc.dart';
 import 'package:news_app_client/logic/auth/obscure_state_cubit.dart';
 import 'package:news_app_client/logic/auth/sign_up/sign_up_bloc.dart';
+import 'package:news_app_client/logic/tokens/save_tokens_bloc.dart';
 import 'package:news_app_client/presentation/login/auth_card.dart';
 import 'package:news_app_client/widgets/top_bar.dart';
 
@@ -22,6 +24,9 @@ class AuthScreen extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SignUpBloc(repository: _repository(context)),
+        ),
+        BlocProvider(
+          create: (context) => SaveTokensBloc(provider: HiveProvider()),
         ),
       ],
       child: Scaffold(

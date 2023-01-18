@@ -1,6 +1,8 @@
 const baseUrl = 'http://127.0.0.1:8080';
 const authorizationText = "Authorization";
 
+const accessTokenKey = 'access-token-key';
+
 const defaultErrorMessage = 'Something Went Wrong';
 const cancelDioError = 'Request Has Been Canceled';
 const timeoutError = 'Connection Time Out';

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_client/logic/auth/login/login_bloc.dart';
 import 'package:news_app_client/logic/auth/obscure_state_cubit.dart';
 import 'package:news_app_client/logic/auth/sign_up/sign_up_bloc.dart';
+import 'package:news_app_client/logic/tokens/save_tokens_bloc.dart';
 import 'package:news_app_client/routing/routes.dart';
 import 'package:news_app_client/style/dimensions.dart';
 import 'package:news_app_client/widgets/filled_button.dart';
@@ -26,28 +27,39 @@ class _AuthCardState extends State<AuthCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        width: 0.4.sw,
-        padding: padding16,
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              sizedBoxH16,
-              Text(
-                "Login / Sign-Up",
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              sizedBoxH32,
-              _usernameTextField(),
-              sizedBoxH12,
-              _passwordTextField(),
-              sizedBoxH24,
-              _loginButton(),
-              sizedBoxH8,
-              _signUpButton(),
-            ],
+    return BlocListener<SaveTokensBloc, SaveTokensState>(
+      listener: (context, state) {
+        if (state is SaveTokensSuccess) {
+          Navigator.of(context).pushReplacementNamed(Routes.newsFeed);
+        } else if (state is SaveTokensFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            snackBar(context, state.error, isError: true),
+          );
+        }
+      },
+      child: Card(
+        child: Container(
+          width: 0.4.sw,
+          padding: padding16,
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                sizedBoxH16,
+                Text(
+                  "Login / Sign-Up",
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                sizedBoxH32,
+                _usernameTextField(),
+                sizedBoxH12,
+                _passwordTextField(),
+                sizedBoxH24,
+                _loginButton(),
+                sizedBoxH8,
+                _signUpButton(),
+              ],
+            ),
           ),
         ),
       ),
@@ -58,7 +70,7 @@ class _AuthCardState extends State<AuthCard> {
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
-          Navigator.of(context).pushReplacementNamed(Routes.newsFeed);
+          _saveTokens(context, state.response.result!.token!);
         } else if (state is SignUpFailure) {
           ScaffoldMessenger.of(context)
               .showSnackBar(snackBar(context, state.error, isError: true));
@@ -80,7 +92,7 @@ class _AuthCardState extends State<AuthCard> {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          Navigator.of(context).pushReplacementNamed(Routes.newsFeed);
+          _saveTokens(context, state.response.result!.token!);
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context)
               .showSnackBar(snackBar(context, state.error, isError: true));
@@ -164,6 +176,14 @@ class _AuthCardState extends State<AuthCard> {
           OnSignUp(
             username: usernameController.text,
             password: passwordController.text,
+          ),
+        );
+  }
+
+  void _saveTokens(BuildContext context, String accessToken) {
+    context.read<SaveTokensBloc>().add(
+          SaveTokensEvent(
+            accessToken: accessToken,
           ),
         );
   }
