@@ -16,7 +16,7 @@ class NewsFeedScreen extends StatelessWidget {
     return BlocBuilder<NewsFeedBloc, NewsFeedState>(
       builder: (context, state) {
         return DefaultTabController(
-          length: state is NewsFeedSuccess ? state.news.length : 1,
+          length: _tabsLength(state),
           child: Builder(builder: (context) {
             var tabBar = const TabBar(
               tabs: [
@@ -63,6 +63,12 @@ class NewsFeedScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  int _tabsLength(NewsFeedState state) {
+    if (state is! NewsFeedSuccess) return 1;
+    if (state.news.isEmpty) return 1;
+    return state.news.length;
   }
 
   List<Widget> _tabBarViewChildren(NewsFeedSuccess state) {
