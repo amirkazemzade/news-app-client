@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_client/routing/app_router.dart';
+import 'package:news_app_client/admin-routing/app_router.dart';
+import 'package:news_app_client/admin-routing/routes.dart';
 import 'package:news_app_client/style/theme.dart';
 import 'package:news_app_client/user/data/repository.dart';
 import 'package:news_app_client/user/logic/news_feed/news_feed_bloc.dart';
@@ -35,12 +36,13 @@ class MyApp extends StatelessWidget {
               Brightness.light: ThemeMode.light
             };
             return MaterialApp(
-              title: 'News App',
+              title: 'News App Admin',
               theme: lightTheme,
               darkTheme: darkTheme,
               debugShowCheckedModeBanner: false,
               themeMode: themeMode[brightness],
-              onGenerateRoute: AppRouter.onGenerateRoute,
+              initialRoute: AdminRoutes.adminLogin,
+              onGenerateRoute: AdminAppRouter.onGenerateRoute,
               builder: (_, child) {
                 return SizingBuilder(
                   builder: () => child!,

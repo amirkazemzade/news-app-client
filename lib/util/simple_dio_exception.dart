@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:news_app_client/data/models/general_response_model.dart';
+import 'package:news_app_client/user/data/models/general_response_model.dart';
 import 'package:news_app_client/util/strings.dart';
 import 'package:restart_app/restart_app.dart';
 

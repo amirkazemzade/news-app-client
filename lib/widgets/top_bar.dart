@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_client/logic/theme_brightness_cubit.dart';
+import 'package:news_app_client/user/logic/theme_brightness_cubit.dart';
 
 PreferredSizeWidget? topBar(BuildContext context,
     {PreferredSizeWidget? bottom, List<Widget>? actions}) {
