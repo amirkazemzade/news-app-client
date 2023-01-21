@@ -4,6 +4,7 @@ const padding4 = EdgeInsets.all(4);
 const padding8 = EdgeInsets.all(8);
 const padding16 = EdgeInsets.all(16);
 const padding32 = EdgeInsets.all(32);
+const padding64 = EdgeInsets.all(64);
 
 const paddingH8 = EdgeInsets.symmetric(horizontal: 16);
 

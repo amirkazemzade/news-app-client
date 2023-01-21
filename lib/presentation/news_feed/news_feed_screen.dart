@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_client/data/models/category_enum.dart';
 import 'package:news_app_client/logic/news_feed/news_feed_bloc.dart';
 import 'package:news_app_client/presentation/news_feed/news_feed.dart';
+import 'package:news_app_client/routing/routes.dart';
 import 'package:news_app_client/widgets/failure_widgets.dart';
 import 'package:news_app_client/widgets/loading_indicator.dart';
 import 'package:news_app_client/widgets/top_bar.dart';
@@ -17,9 +18,11 @@ class NewsFeedScreen extends StatelessWidget {
         return DefaultTabController(
           length: state is NewsFeedSuccess ? state.news.length : 1,
           child: Builder(builder: (context) {
-            var tabBar = const TabBar(tabs: [
-              Tab(child: StyledLoadingIndicator(width: 18)),
-            ]);
+            var tabBar = const TabBar(
+              tabs: [
+                Tab(child: StyledLoadingIndicator(width: 18)),
+              ],
+            );
             if (state is NewsFeedSuccess) {
               final categoryIds = state.news.keys;
               tabBar = TabBar(
@@ -30,6 +33,12 @@ class NewsFeedScreen extends StatelessWidget {
             }
             return Scaffold(
               appBar: topBar(context, bottom: tabBar),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.settings);
+                },
+                child: const Icon(Icons.settings),
+              ),
               body: Builder(
                 builder: (context) {
                   if (state is NewsFeedInitial) {
@@ -37,9 +46,7 @@ class NewsFeedScreen extends StatelessWidget {
                   }
                   if (state is NewsFeedSuccess) {
                     return TabBarView(
-                      children: state.news.values
-                          .map((newsList) => NewsFeed(news: newsList))
-                          .toList(),
+                      children: _tabBarViewChildren(state),
                     );
                   }
                   if (state is NewsFeedFailure) {
@@ -58,7 +65,23 @@ class NewsFeedScreen extends StatelessWidget {
     );
   }
 
+  List<Widget> _tabBarViewChildren(NewsFeedSuccess state) {
+    if (state.news.isEmpty) {
+      return [
+        const Center(child: Text("Sorry, There is no news for you right now!")),
+      ];
+    }
+    return state.news.values
+        .map((newsList) => NewsFeed(news: newsList))
+        .toList();
+  }
+
   List<Tab> _categories(Iterable<int> categories) {
+    if (categories.isEmpty) {
+      return [
+        const Tab(text: "There is no news!"),
+      ];
+    }
     return categories.map(
       (categoryId) {
         return Tab(text: categoryFromId(categoryId).name);

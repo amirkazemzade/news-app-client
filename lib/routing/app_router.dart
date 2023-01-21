@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app_client/presentation/login/auth_screen.dart';
 import 'package:news_app_client/presentation/news_details/news_details_screen.dart';
 import 'package:news_app_client/presentation/news_feed/news_feed_screen.dart';
+import 'package:news_app_client/presentation/settings/settings_screen.dart';
 import 'package:news_app_client/routing/routes.dart';
 
 class AppRouter {
@@ -20,6 +21,10 @@ class AppRouter {
           );
         }
         break;
+      case Routes.settings:
+        return MaterialPageRoute(
+          builder: (_) => const SettingsScreen(),
+        );
     }
 
     return MaterialPageRoute(builder: (_) => const AuthScreen());

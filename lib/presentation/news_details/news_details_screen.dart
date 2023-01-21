@@ -40,7 +40,7 @@ class NewsDetailsScreen extends StatelessWidget {
             if (state is NewsDetailsSuccess) {
               var textTheme = Theme.of(context).textTheme;
               return ListView(
-                padding: padding16,
+                padding: padding64,
                 children: [
                   Text(
                     state.news.title!,
@@ -71,7 +71,6 @@ class NewsDetailsScreen extends StatelessWidget {
                   Text(
                     state.news.body!,
                     style: textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
                   )
                 ],
               );
