@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_client/admin.representation/admin-login/admin_login_screen.dart';
+import 'package:news_app_client/admin/presentation/admin-login/admin_login_screen.dart';
+import 'package:news_app_client/admin/presentation/create_news/create_news_screen.dart';
+import 'package:news_app_client/admin/presentation/news_feed/all_news_screen.dart';
 import 'package:news_app_client/routing/routes.dart';
 import 'package:news_app_client/user/presentation/login/auth_screen.dart';
 import 'package:news_app_client/user/presentation/news_details/news_details_screen.dart';
@@ -35,6 +37,24 @@ class AppRouter {
         return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => const AdminLoginScreen(),
+        );
+      case Routes.allNews:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => const AllNewsScreen(),
+        );
+      case Routes.adminNewsDetails:
+        if (arguments is int) {
+          return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => NewsDetailsScreen(newsId: arguments, isAdmin: true),
+          );
+        }
+        break;
+      case Routes.createNews:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => const CreateNewsScreen(),
         );
     }
 

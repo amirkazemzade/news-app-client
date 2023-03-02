@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_client/admin-routing/routes.dart';
-import 'package:news_app_client/admin.representation/admin-login/admin_login_screen.dart';
+import 'package:news_app_client/admin/presentation/admin-login/admin_login_screen.dart';
 
 class AdminAppRouter {
   static Route? onGenerateRoute(RouteSettings routeSettings) {

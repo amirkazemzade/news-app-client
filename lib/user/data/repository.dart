@@ -1,6 +1,6 @@
 import 'package:news_app_client/user/data/models/auth_response_model.dart';
 import 'package:news_app_client/user/data/models/news_details_response_model.dart';
-import 'package:news_app_client/user/data/models/user_news_response_model.dart';
+import 'package:news_app_client/user/data/models/news_list_response_model.dart';
 import 'package:news_app_client/user/data/providers/news_data_provider.dart';
 import 'package:news_app_client/user/data/providers/user_data_provider.dart';
 
@@ -23,7 +23,7 @@ class Repository {
       _userProvider.signUp(username, password);
 
   /* News */
-  Future<UserNewsResponseModel> fetchUserNewsFeed() async =>
+  Future<NewsListResponseModel> fetchUserNewsFeed() async =>
       _newsProvider.fetchUserNewsFeed();
 
   Future<NewsDetailsResponseModel> fetchNewsDetails(int newsId) async =>

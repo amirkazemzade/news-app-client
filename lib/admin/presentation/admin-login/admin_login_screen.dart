@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_client/admin.representation/admin-login/admin_login_card.dart';
+import 'package:news_app_client/admin/presentation/admin-login/admin_login_card.dart';
 import 'package:news_app_client/user/data/providers/hive_provider.dart';
 import 'package:news_app_client/user/data/repository.dart';
 import 'package:news_app_client/user/logic/auth/login/login_bloc.dart';

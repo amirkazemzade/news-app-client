@@ -29,7 +29,7 @@ class _AdminLoginCardState extends State<AdminLoginCard> {
     return BlocListener<SaveTokensBloc, SaveTokensState>(
       listener: (context, state) {
         if (state is SaveTokensSuccess) {
-          Navigator.of(context).pushReplacementNamed(Routes.newsFeed);
+          Navigator.of(context).pushReplacementNamed(Routes.allNews);
         } else if (state is SaveTokensFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             snackBar(context, state.error, isError: true),

@@ -15,7 +15,7 @@ class NewsFeedLoading extends NewsFeedState {
 }
 
 class NewsFeedSuccess extends NewsFeedState {
-  final Map<int, List<UserNewsItem>> news;
+  final Map<int, List<NewsItemModel>> news;
 
   const NewsFeedSuccess({
     required this.news,

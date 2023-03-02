@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_client/user/data/models/user_news_response_model.dart';
+import 'package:news_app_client/user/data/models/news_list_response_model.dart';
 import 'package:news_app_client/user/data/repository.dart';
 
 part 'news_feed_event.dart';
@@ -42,8 +42,8 @@ class NewsFeedBloc extends Bloc<NewsFeedEvent, NewsFeedState> {
   }
 }
 
-Map<int, List<UserNewsItem>> mapNewsByCategoryId(List<UserNewsItem> newsList) {
-  final newsMap = <int, List<UserNewsItem>>{};
+Map<int, List<NewsItemModel>> mapNewsByCategoryId(List<NewsItemModel> newsList) {
+  final newsMap = <int, List<NewsItemModel>>{};
   for (var newsItem in newsList) {
     var list = newsMap[newsItem.categoryId!] ?? [];
     list.add(newsItem);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_client/routing/routes.dart';
 import 'package:news_app_client/style/dimensions.dart';
 import 'package:news_app_client/user/data/models/category_enum.dart';
 import 'package:news_app_client/user/data/repository.dart';
@@ -10,9 +11,12 @@ import 'package:news_app_client/widgets/loading_indicator.dart';
 import 'package:news_app_client/widgets/top_bar.dart';
 
 class NewsDetailsScreen extends StatelessWidget {
-  const NewsDetailsScreen({Key? key, required this.newsId}) : super(key: key);
+  const NewsDetailsScreen(
+      {Key? key, required this.newsId, this.isAdmin = false})
+      : super(key: key);
 
   final int newsId;
+  final bool isAdmin;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,20 @@ class NewsDetailsScreen extends StatelessWidget {
       create: (context) =>
           NewsDetailsBloc(repository: context.read<Repository>()),
       child: Scaffold(
-        appBar: topBar(context),
+        appBar: topBar(
+          context,
+          actions: isAdmin
+              ? [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(Routes.updateNews, arguments: newsId);
+                    },
+                    icon: const Icon(Icons.edit),
+                  )
+                ]
+              : null,
+        ),
         body: BlocConsumer<NewsDetailsBloc, NewsDetailsState>(
           listener: (context, state) {
             if (state is NewsDetailsSuccess) {

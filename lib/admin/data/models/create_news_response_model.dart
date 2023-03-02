@@ -1,31 +1,31 @@
-class UserNewsResponseModel {
-  UserNewsResponseModel({
+class CreateNewsResponseModel {
+  CreateNewsResponseModel({
     String? state,
     dynamic message,
-    UserNewsListModel? result,
+    CreatedNewsModel? result,
   }) {
     _state = state;
     _message = message;
     _result = result;
   }
 
-  UserNewsResponseModel.fromJson(dynamic json) {
+  CreateNewsResponseModel.fromJson(dynamic json) {
     _state = json['state'];
     _message = json['message'];
     _result = json['result'] != null
-        ? UserNewsListModel.fromJson(json['result'])
+        ? CreatedNewsModel.fromJson(json['result'])
         : null;
   }
 
   String? _state;
   dynamic _message;
-  UserNewsListModel? _result;
+  CreatedNewsModel? _result;
 
   String? get state => _state;
 
   dynamic get message => _message;
 
-  UserNewsListModel? get result => _result;
+  CreatedNewsModel? get result => _result;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -38,61 +38,28 @@ class UserNewsResponseModel {
   }
 }
 
-class UserNewsListModel {
-  UserNewsListModel({
-    String? type,
-    List<UserNewsItem>? items,
-  }) {
-    _type = type;
-    _items = items;
-  }
-
-  UserNewsListModel.fromJson(dynamic json) {
-    _type = json['type'];
-    if (json['items'] != null) {
-      _items = [];
-      json['items'].forEach((v) {
-        _items?.add(UserNewsItem.fromJson(v));
-      });
-    }
-  }
-
-  String? _type;
-  List<UserNewsItem>? _items;
-
-  String? get type => _type;
-
-  List<UserNewsItem>? get items => _items;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['type'] = _type;
-    if (_items != null) {
-      map['items'] = _items?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-}
-
-class UserNewsItem {
-  UserNewsItem({
+class CreatedNewsModel {
+  CreatedNewsModel({
     String? type,
     int? id,
     String? title,
+    String? body,
     int? categoryId,
     int? viewCount,
   }) {
     _type = type;
     _id = id;
     _title = title;
+    _body = body;
     _categoryId = categoryId;
     _viewCount = viewCount;
   }
 
-  UserNewsItem.fromJson(dynamic json) {
+  CreatedNewsModel.fromJson(dynamic json) {
     _type = json['type'];
     _id = json['id'];
     _title = json['title'];
+    _body = json['body'];
     _categoryId = json['category_id'];
     _viewCount = json['view_count'];
   }
@@ -100,6 +67,7 @@ class UserNewsItem {
   String? _type;
   int? _id;
   String? _title;
+  String? _body;
   int? _categoryId;
   int? _viewCount;
 
@@ -108,6 +76,8 @@ class UserNewsItem {
   int? get id => _id;
 
   String? get title => _title;
+
+  String? get body => _body;
 
   int? get categoryId => _categoryId;
 
@@ -118,6 +88,7 @@ class UserNewsItem {
     map['type'] = _type;
     map['id'] = _id;
     map['title'] = _title;
+    map['body'] = _body;
     map['category_id'] = _categoryId;
     map['view_count'] = _viewCount;
     return map;
